@@ -1,0 +1,25 @@
+<schemalist>
+	<schema id="apps.worklist.common" path="/apps/worklist/common" gettext-domain="worklist">
+		<key name="editor-font" type="s">
+			<default>"Ubuntu 11"</default>
+			<summary>The font of the alarm editor</summary>
+			<description>
+				The font of the alarm editor
+			</description>
+		</key>
+		<key name="popup-font" type="s">
+			<default>"Ubuntu 11"</default>
+			<summary>The font of the popup pieces</summary>
+			<description>
+				The font of the popup pieces
+			</description>
+		</key>
+	</schema>
+	<schema id="apps.worklist.advanced" path="/apps/worklist/advanced" gettext-domain="worklist">
+		<key name="auto-start" type="b">
+			<default>true</default>
+			<summary>Start the app when system start to run</summary>
+			<description>
+				Start the app when system start to run
+			</description>
+</schemalist>
