@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WorkList
+Comment=Ubuntu App for schedule works
+Exec=WorkList
+Icon=WorkList
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;ALARM;
+
