@@ -1,7 +1,11 @@
 from threading import Thread, Event
+from subprocess import call
 import datetime
+import os
 
 from gi.repository import Gtk, Notify
+
+from util.constants import DATA_PATH
 
 
 class Timer(Thread):
@@ -42,6 +46,8 @@ class WorkListDaemon(Timer):
 		Notify.init('WorkList')
 		self.current_notification = None
 		
+	def play_sound(self):
+		call(['paplay', os.path.join(DATA_PATH, 'sound', 'alarm.ogg')])
 
 	def check_time(self):
 		print 'check_time'
@@ -57,16 +63,17 @@ class WorkListDaemon(Timer):
 				str_timetuple = alarm_time.split('-')
 				int_timetuple = [int(x) for x in str_timetuple]
 				alarm_datetime = datetime.datetime(*int_timetuple)
-
+		
 				now_datetime = datetime.datetime.now()
 
 				delta = now_datetime - alarm_datetime
 
 				if delta.total_seconds() >= 0:
+					Thread(target=self.play_sound).start()
 					self.current_notification = Notify.Notification.new(
 						'Time To Work Now',
 						"\n" + work._title + "\n",
-						'WorkList'
+						os.path.join(DATA_PATH, 'icons', 'WorkList-mono-dark.png')
 					)
 					self.current_notification.set_hint_string('append','allowed')
 					self.current_notification.show()

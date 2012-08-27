@@ -1,4 +1,7 @@
+import os
+
 from gi.repository import Gtk, Gio
+
 
 from util.worklist_settings import WorkListSettings
 from util.constants import DATA_PATH

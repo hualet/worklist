@@ -8,7 +8,7 @@ from gi.repository import Gtk, Pango
 
 from dataparse import WorkListParser
 from datatype import *
-from constants import *
+from util.constants import *
 from util.debug import log_func
 from util.worklist_settings import WorkListSettings
 from widgets.dialogs import QuestionDialog
@@ -35,17 +35,32 @@ class MainWindow():
 		except Exception:
 			print "There's no picture at all."
 
+		agr = Gtk.AccelGroup()
+		self.win.add_accel_group(agr)
+
 		#self.toolbar = builder.get_object('toolbar')
 		#context = self.toolbar.get_style_context()
 		#context.add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 		self.tool_new = builder.get_object('toolbutton1')
 		self.tool_new.connect('clicked', self.tool_new_clicked)
+		key_new, mod_new = Gtk.accelerator_parse("<Control>N")
+		self.tool_new.add_accelerator('clicked', agr, key_new, mod_new, Gtk.AccelFlags.VISIBLE)
 		self.tool_save = builder.get_object('toolbutton2')
 		self.tool_save.connect('clicked', self.tool_save_clicked)
+		key_save, mod_save = Gtk.accelerator_parse("<Control>S")
+		self.tool_save.add_accelerator('clicked', agr, key_save, mod_save, Gtk.AccelFlags.VISIBLE)
+
 		self.tool_preference = builder.get_object('preference')
 		self.tool_preference.connect('clicked', self.tool_preference_clicked)
+		key_preference, mod_preference = Gtk.accelerator_parse("<Control>P")
+		self.tool_preference.add_accelerator('clicked', agr, key_preference, mod_preference, Gtk.AccelFlags.VISIBLE)
+
 		self.tool_about = builder.get_object('about')
 		self.tool_about.connect('clicked', self.tool_about_clicked)
+		key_about, mod_about = Gtk.accelerator_parse("<Control>A")
+		self.tool_about.add_accelerator('clicked', agr, key_about, mod_about, Gtk.AccelFlags.VISIBLE)
+
+
 
 		self.unlock_button = builder.get_object('unlock')
 		self.unlock_button.connect('toggled', self.unlock_button_toggled)
@@ -93,9 +108,11 @@ class MainWindow():
 			self.show_nothing()
 			self.current_work = None
 
-		self.win.connect('delete-event', Gtk.main_quit)
+		self.win.connect('delete-event', self.win_destroy)
 		self.win.show_all()
-		Gtk.main()
+
+	def win_destroy(self, widgets, event):
+		self.win.destroy()
 
 	def enable_edit(self, value):
 		if value:

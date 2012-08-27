@@ -1,2 +1,4 @@
-DATA_PATH = '/home/asian/desktop/WorkList/data'
+import os 
+
+DATA_PATH = os.path.abspath('../../worklist/data')
 

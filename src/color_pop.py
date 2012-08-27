@@ -6,22 +6,13 @@ import datatype
 from datatype import *
 from util.constants import DATA_PATH
 
-POPUP_MENU = """
-<ui> 	
-	<popup name='PopupMenu'>
-		<menuitem action='EditCopy' />
-		<menuitem action='EditPaste' />
-		<menuitem action='EditSomething' />
-	</popup>
-</ui>
-"""
-
 class ColorPop(Gtk.Window):
 	
 	def __init__(self, work):
 		super(ColorPop, self).__init__()
 		self.set_default_size(200, 250)
 		self.set_title(work._title)
+		self.set_border_width(5)
 		try:
 			self.set_icon_from_file(os.path.join(DATA_PATH, 'icons', 'WorkList.png'))
 		except Exception:
