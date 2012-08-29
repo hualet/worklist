@@ -4,7 +4,7 @@ from gi.repository import Gtk, Gdk, GObject
 
 from unity.indicator import WorkListIndicator
 from unity.daemon import WorkListDaemon
-from util import WorkListSettings
+from util.worklist_settings import WorkListSettings
 	
 auto_file_path = os.path.join(os.path.expanduser('~'), 
 			'.config', 'autostart', 'WorkList.desktop')
