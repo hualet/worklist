@@ -106,6 +106,16 @@ class PreferenceDialog(Gtk.Window):
 	def apply_clicked(self, widget):
 		if hasattr(self, 'auto_start_value'):
 			WorkListSettings.set_value('auto-start', self.auto_start_value)
+
+			auto_file_path = os.path.join(os.path.expanduser('~'), '.config', 'autostart', 'WorkList.desktop')
+
+			if not self.auto_start_value:
+				if os.path.exists(auto_file_path):
+					os.unlink(auto_file_path)
+			else:
+				if not os.path.exists(auto_file_path):
+					os.symlink('/usr/share/applications/WorkList.desktop', auto_file_path)
+				
 		if hasattr(self, 'editor_font_value'):
 			WorkListSettings.set_value('editor-font', self.editor_font_value)
 		if hasattr(self, 'popup_font_value'):
