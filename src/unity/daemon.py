@@ -38,7 +38,7 @@ class Timer(Thread):
 class WorkListDaemon(Timer):
 
 	def __init__(self, master):
-		super(WorkListDaemon, self).__init__(5, self.check_time)
+		super(WorkListDaemon, self).__init__(40, self.check_time)
 
 		self.master = master
 		self.setDaemon(True)

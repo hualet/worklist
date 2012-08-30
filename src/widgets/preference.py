@@ -37,7 +37,7 @@ class PreferenceDialog(Gtk.Window):
 		self.auto_start_switch = Gtk.Switch()
 		switch = WorkListSettings.get_value('auto-start')
 		self.auto_start_switch.set_active(switch)
-		self.auto_start_switch.connect('activate', self.auto_start_set)
+		self.auto_start_switch.connect('notify::active', self.auto_start_set)
 		self.advanced_grid.attach(self.start_label, 0, 0, 1, 1)
 		self.advanced_grid.attach(self.auto_start_label, 1, 1, 1, 1)
 		self.advanced_grid.attach(self.auto_start_switch, 2, 1, 1, 1)
@@ -100,7 +100,7 @@ class PreferenceDialog(Gtk.Window):
 	def popup_font_set(self, widget):
 		self.popup_font_value = widget.get_font_name()
 		
-	def auto_start_set(self, widget):
+	def auto_start_set(self, widget, active):
 		self.auto_start_value = widget.get_active()
 		
 	def apply_clicked(self, widget):
@@ -111,9 +111,11 @@ class PreferenceDialog(Gtk.Window):
 
 			if not self.auto_start_value:
 				if os.path.exists(auto_file_path):
+					print 'not autostart'
 					os.unlink(auto_file_path)
 			else:
 				if not os.path.exists(auto_file_path):
+					print 'autostart'
 					os.symlink('/usr/share/applications/WorkList.desktop', auto_file_path)
 				
 		if hasattr(self, 'editor_font_value'):

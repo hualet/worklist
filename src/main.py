@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 
 from gi.repository import Gtk, Gdk, GObject

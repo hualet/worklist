@@ -1,3 +1,4 @@
+import subprocess
 import types
 
 from gi.repository import Gio
@@ -5,6 +6,8 @@ from gi.repository import Gio
 class WorkListSettings():
 	COMMON_PATH = 'apps.worklist.common'
 	ADVANCED_PATH = 'apps.worklist.advanced'
+
+	subprocess.call(['glib-compile-schemas', '/usr/share/glib-2.0/schemas'])
 
 	common = Gio.Settings.new_with_path(COMMON_PATH,'/' + '/'.join(COMMON_PATH.split('.')) + '/')
 	advanced = Gio.Settings.new_with_path(ADVANCED_PATH,'/' + '/'.join(ADVANCED_PATH.split('.')) + '/')
