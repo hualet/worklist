@@ -1,4 +1,4 @@
 import os 
 
-DATA_PATH = os.path.abspath('../../worklist/data')
+DATA_PATH = os.path.abspath(os.path.expanduser('~/.worklist/data'))
 
