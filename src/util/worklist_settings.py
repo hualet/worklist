@@ -15,6 +15,7 @@ class WorkListSettings():
 	KEY_TYPE = {
 		'editor-font' : types.StringType,
 		'popup-font' : types.StringType,
+		'alarm-ring' : types.StringType,
 		'auto-start' : types.BooleanType,
 	}
 
@@ -60,5 +61,3 @@ class WorkListSettings():
 		else:
 			cls.advanced.bind(key, obj, prop, flag)
 
-if __name__ == '__main__':
-	print WorkListSettings.get_value('editor-font')

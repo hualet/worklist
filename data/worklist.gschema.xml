@@ -14,6 +14,13 @@
 				The font of the popup pieces
 			</description>
 		</key>
+		<key name="alarm-ring" type="s">
+			<default>"alarm_01.ogg"</default>
+			<summary>The sound that plays when time's up</summary>
+			<description>
+				The sound that plays when time's up
+			</description>
+		</key>
 	</schema>
 	<schema id="apps.indicators.worklist.advanced" path="/apps/indicators/worklist/advanced/" gettext-domain="worklist">
 		<key name="auto-start" type="b">

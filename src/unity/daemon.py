@@ -6,6 +6,7 @@ import os
 from gi.repository import Gtk, Notify
 
 from util.constants import DATA_PATH
+from util.worklist_settings import WorkListSettings
 
 
 class Timer(Thread):
@@ -38,7 +39,7 @@ class Timer(Thread):
 class WorkListDaemon(Timer):
 
 	def __init__(self, master):
-		super(WorkListDaemon, self).__init__(40, self.check_time)
+		super(WorkListDaemon, self).__init__(30, self.check_time)
 
 		self.master = master
 		self.setDaemon(True)
@@ -47,7 +48,8 @@ class WorkListDaemon(Timer):
 		self.current_notification = None
 		
 	def play_sound(self):
-		call(['paplay', os.path.join(DATA_PATH, 'sound', 'alarm.ogg')])
+		alarm_ring = WorkListSettings.get_value('alarm-ring')
+		call(['paplay', os.path.join(DATA_PATH, 'sound', alarm_ring)])
 
 	def check_time(self):
 		print 'check_time'

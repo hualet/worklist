@@ -2,7 +2,6 @@ import os
 
 from gi.repository import Gtk, Gio
 
-
 from util.worklist_settings import WorkListSettings
 from util.constants import DATA_PATH
 
@@ -47,9 +46,10 @@ class PreferenceDialog(Gtk.Window):
 		self.common_grid.set_margin_left(8)
 		self.common_grid.set_margin_right(8)
 		self.common_grid.set_margin_bottom(8)
+		self.common_grid.set_column_homogeneous(False)
 
-		self.font_label = Gtk.Label()
-		self.font_label.set_markup('<b>Fonts and Colors</b>')
+		self.font_and_colors_label = Gtk.Label()
+		self.font_and_colors_label.set_markup('<b>Fonts and Colors</b>')
 		self.editor_font_label = Gtk.Label('Editor Font : ')
 		self.editor_font_button = Gtk.FontButton()
 		self.editor_font_button.set_font_name(WorkListSettings.get_value('editor-font'))
@@ -58,7 +58,7 @@ class PreferenceDialog(Gtk.Window):
 		self.editor_font_button.set_use_font(True)
 		self.editor_font_button.set_use_size(True)
 		self.editor_font_button.connect('font-set', self.editor_font_set)
-		self.common_grid.attach(self.font_label, 0, 0, 1, 1)
+		self.common_grid.attach(self.font_and_colors_label, 0, 0, 1, 1)
 		self.common_grid.attach(self.editor_font_label, 0, 1, 1, 1)
 		self.common_grid.attach(self.editor_font_button, 1, 1, 1, 1)
 
@@ -72,6 +72,16 @@ class PreferenceDialog(Gtk.Window):
 		self.popup_font_button.connect('font-set', self.popup_font_set)
 		self.common_grid.attach(self.popup_font_label, 0, 2, 1, 1)
 		self.common_grid.attach(self.popup_font_button, 1, 2, 1, 1)
+
+		self.sound_label = Gtk.Label()
+		self.sound_label.set_markup("<b>Sounds</b>")
+		self.alarm_ring_label = Gtk.Label("Alarm Ring: ")
+		self.rings_combobox = self.create_rings_combobox()
+		self.rings_combobox.connect('changed', self.rings_combobox_changed)
+		self.common_grid.attach(Gtk.Label(), 0, 3, 1, 1)
+		self.common_grid.attach(self.sound_label, 0, 4, 1, 1)
+		self.common_grid.attach(self.alarm_ring_label, 0, 5, 1, 1)
+		self.common_grid.attach(self.rings_combobox, 1, 5, 1, 1)
 
 
 		self.settings.append_page(self.common_grid, Gtk.Label('Common'))
@@ -93,6 +103,16 @@ class PreferenceDialog(Gtk.Window):
 		self.add(self.main_box)
 		self.connect('delete-event', self.close_clicked)
 		self.show_all()
+
+	def create_rings_combobox(self):
+		sounds = os.listdir(os.path.join(DATA_PATH, 'sound'))	
+		rings_combobox = Gtk.ComboBoxText()
+		for sound in sounds:
+			rings_combobox.append_text(sound)
+		return rings_combobox
+
+	def rings_combobox_changed(self, widget):
+		self.alarm_ring_value = widget.get_active_text()
 
 	def editor_font_set(self, widget):
 		self.editor_font_value = widget.get_font_name()
@@ -122,6 +142,8 @@ class PreferenceDialog(Gtk.Window):
 			WorkListSettings.set_value('editor-font', self.editor_font_value)
 		if hasattr(self, 'popup_font_value'):
 			WorkListSettings.set_value('popup-font', self.popup_font_value)
+		if hasattr(self, 'alarm_ring_value'):
+			WorkListSettings.set_value('alarm-ring', self.alarm_ring_value)
 		
 	def close_clicked(self, widget, data=None):
 		self.destroy()
