@@ -6,4 +6,5 @@ glib-compile-schemas /usr/share/glib-2.0/
 mkdir /home/$REALUSER/.worklist
 mv /usr/share/worklist/data /home/$REALUSER/.worklist
 chown -R $REALUSER:$REALUSER /home/$REALUSER/.worklist
-
+ln -s /usr/share/applications/WorkList.desktop \
+		$REALUSER/.config/autostart/WorkList.desktop
