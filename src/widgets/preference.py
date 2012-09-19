@@ -106,13 +106,20 @@ class PreferenceDialog(Gtk.Window):
 
 	def create_rings_combobox(self):
 		sounds = os.listdir(os.path.join(DATA_PATH, 'sound'))	
+		sounds_dict = list(enumerate(sounds))
 		rings_combobox = Gtk.ComboBoxText()
 		for sound in sounds:
+			sound = sound.split('.')[0]
 			rings_combobox.append_text(sound)
+
+		alarm_ring = WorkListSettings.get_value('alarm-ring')
+		alarm_ring_id = [x[0] for x in sounds_dict if x[1] == alarm_ring][0]
+		rings_combobox.set_active(alarm_ring_id)
+
 		return rings_combobox
 
 	def rings_combobox_changed(self, widget):
-		self.alarm_ring_value = widget.get_active_text()
+		self.alarm_ring_value = widget.get_active_text() + '.ogg'
 
 	def editor_font_set(self, widget):
 		self.editor_font_value = widget.get_font_name()
@@ -144,6 +151,7 @@ class PreferenceDialog(Gtk.Window):
 			WorkListSettings.set_value('popup-font', self.popup_font_value)
 		if hasattr(self, 'alarm_ring_value'):
 			WorkListSettings.set_value('alarm-ring', self.alarm_ring_value)
+		self.destroy()
 		
 	def close_clicked(self, widget, data=None):
 		self.destroy()

@@ -15,7 +15,7 @@
 			</description>
 		</key>
 		<key name="alarm-ring" type="s">
-			<default>"alarm_01.ogg"</default>
+			<default>"Ubuntu.ogg"</default>
 			<summary>The sound that plays when time's up</summary>
 			<description>
 				The sound that plays when time's up
