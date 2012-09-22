@@ -1,6 +1,6 @@
 Package: worklist
-Version: 0.1-0~precise1
-Installed-Size: 346
+Version: 0.2-0~precise1
+Installed-Size: 2756
 Section: utils
 Priority: extra
 Maintainer: asian <mr.asianwang@gmail.com>
