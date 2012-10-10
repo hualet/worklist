@@ -1,0 +1,34 @@
+<schemalist>
+	<schema id="apps.indicators.worklist.common" path="/apps/indicators/worklist/common/" gettext-domain="worklist">
+		<key name="editor-font" type="s">
+			<default>"Ubuntu 11"</default>
+			<summary>The font of the alarm editor</summary>
+			<description>
+				The font of the alarm editor
+			</description>
+		</key>
+		<key name="popup-font" type="s">
+			<default>"Ubuntu 11"</default>
+			<summary>The font of the popup pieces</summary>
+			<description>
+				The font of the popup pieces
+			</description>
+		</key>
+		<key name="alarm-ring" type="s">
+			<default>"Ubuntu.ogg"</default>
+			<summary>The sound that plays when time's up</summary>
+			<description>
+				The sound that plays when time's up
+			</description>
+		</key>
+	</schema>
+	<schema id="apps.indicators.worklist.advanced" path="/apps/indicators/worklist/advanced/" gettext-domain="worklist">
+		<key name="auto-start" type="b">
+			<default>true</default>
+			<summary>Start the app when system start to run</summary>
+			<description>
+				Start the app when system start to run
+			</description>
+		</key>
+	</schema>
+</schemalist>
